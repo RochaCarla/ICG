@@ -1,3 +1,0 @@
-#/bin/bash
-
-g++ -o prog main.cpp CG.cpp mesh.cpp -W -Wall -pedantic -ansi -lGL -lGLU -lSDL2
