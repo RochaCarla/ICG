@@ -14,6 +14,7 @@
 	CTestTestfile.cmake
 	_deps
 	/build/
+	/libs/
 	glfw_config.h
 	
 	### CMake Patch ###
