@@ -50,17 +50,17 @@ int main() {
 
     int screenWidth = 800;
     int screenHeight = 600;
-
+  
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 
     float vertices[] = {
-     //   x      y     z       
-         0.5f, -0.5f, 0.0f,  
-        -0.5f, -0.5f, 0.0f,   
-         0.0f,  0.5f, 0.0f
+       
+         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,
+         0.0f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f
     };
 
     unsigned int indices[] = {
@@ -69,6 +69,7 @@ int main() {
 
     unsigned int VBO;
     glGenBuffers(1, &VBO);
+
 
     unsigned int EBO;
     glGenBuffers(1, &EBO);
@@ -85,13 +86,15 @@ int main() {
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof vertices, vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) 0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) (3*sizeof(float)));
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof indices, indices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
+    
+    
     glEnableVertexAttribArray(0);
-
+    glEnableVertexAttribArray(1);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -107,7 +110,7 @@ int main() {
         shader.use();
       
         glBindVertexArray(VAO);
-        glDrawElements(GL_LINE_LOOP, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
        // glDrawArrays(GL_POINTS, 0, 3);
 
         glBindVertexArray(0);
