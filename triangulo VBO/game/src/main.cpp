@@ -50,7 +50,7 @@ int main() {
 
     int screenWidth = 800;
     int screenHeight = 600;
-    glViewport(0, 0, screenWidth, screenHeight);
+
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -107,7 +107,7 @@ int main() {
         shader.use();
       
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_LINE_LOOP, 6, GL_UNSIGNED_INT, 0);
        // glDrawArrays(GL_POINTS, 0, 3);
 
         glBindVertexArray(0);
