@@ -5,10 +5,8 @@
 #include <cmath>
 
 #include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
-#include "log.h"
+
 
 using namespace std;
 
@@ -97,11 +95,7 @@ unsigned int Shader::location(const std::string & name) {
     if (locations.find(name) == locations.end())
     {
         location_id = glGetUniformLocation(program_id, name.c_str());
-        if (location_id == static_cast<unsigned>(-1))
-        {
-            WARN("Shader uniform not found: " << name);
-        }
-        else locations[name] = location_id;
+  
     }
     else location_id = locations[name];
 
@@ -143,13 +137,4 @@ void Shader::set(const std::string & name, float v1, float v2, float v3, float v
     glUniform4f(location(name), v1, v2, v3, v4);
 }
 
-void Shader::set(const std::string & name, const glm::mat4 & value)
-{
-    glUniformMatrix4fv(location(name), 1, GL_FALSE, glm::value_ptr(value));
-}
-
-void Shader::setTime(const std::string & name, std::function<float()> time, float frequency)
-{
-    set(name, sin(frequency * time())/2.0f + 0.5f);
-}
 

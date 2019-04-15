@@ -51,7 +51,8 @@ include_directories("${PROJECT_LIBS_DIR}/glfw/include")
 add_subdirectory("${PROJECT_LIBS_DIR}/glad")
 include_directories("${PROJECT_LIBS_DIR}/glad/include")
 
-
+# STB
+include_directories("${PROJECT_LIBS_DIR}/stb")
 
 ## Executable
 

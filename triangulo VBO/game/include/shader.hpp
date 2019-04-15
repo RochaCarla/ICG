@@ -5,7 +5,6 @@
 #include <unordered_map>
 #include <functional>
 
-#include <glm/gtc/matrix_transform.hpp>
 
 class Shader {
 public:
@@ -20,7 +19,7 @@ public:
     void set(const std::string & name, float v1, float v2);
     void set(const std::string & name, float v1, float v2, float v3);
     void set(const std::string & name, float v1, float v2, float v3, float v4);
-    void set(const std::string & name, const glm::mat4 & value);
+
 
     void setTime(const std::string & name, std::function<float()> time, float frequency=1.0f);
 
