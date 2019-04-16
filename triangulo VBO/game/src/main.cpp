@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <time.h>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -8,11 +9,14 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 #include "shader.hpp"
 
 
 using namespace std;
-
+time_t tempo;
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -59,6 +63,9 @@ int main() {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 
+    Assimp::Importer importer;
+    const aiScene *scene = importer.ReadFile("../X.obj", aiProcess_Triangulate);
+
     float vertices[] = {
        
          0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 1.0f,
@@ -88,9 +95,7 @@ int main() {
     glGenTextures(1, &TEX);
     stbi_set_flip_vertically_on_load(true); 
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("teste.jpg", &width, &height, &nrChannels, 0); 
- 
-
+    unsigned char *data = stbi_load("../teste.jpg", &width, &height, &nrChannels, 0); 
     if (data)
     {
             glBindTexture(GL_TEXTURE_2D, TEX);
@@ -121,7 +126,7 @@ int main() {
     glBufferData(GL_ARRAY_BUFFER, sizeof texCoords, texCoords, GL_STATIC_DRAW);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glActiveTexture(GL_TEXTURE0);
-     glBindTexture(GL_TEXTURE_2D, TEX);
+
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof indices, indices, GL_STATIC_DRAW);
@@ -137,14 +142,18 @@ int main() {
 
     glEnable(GL_DEPTH_TEST);
 
+   
+
     while(!glfwWindowShouldClose(window))
     {
+        tempo = time(0);
+
         processInput(window);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shader.use();
-        glBindTexture(GL_TEXTURE_2D, TEX);
+      //  glBindTexture(GL_TEXTURE_2D, TEX);
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);

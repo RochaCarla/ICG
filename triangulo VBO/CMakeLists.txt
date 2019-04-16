@@ -54,10 +54,14 @@ include_directories("${PROJECT_LIBS_DIR}/glad/include")
 # STB
 include_directories("${PROJECT_LIBS_DIR}/stb")
 
+find_package(ASSIMP REQUIRED)
+include_directories(${ASSIMP_INCLUDE_DIR})
+
+
 ## Executable
 
 add_executable(${GAME_NAME} ${SOURCES})
-target_link_libraries(${GAME_NAME} glfw glad)
+target_link_libraries(${GAME_NAME} glfw glad ${ASSIMP_LIBRARY})
 
 
 #### Custom Commands ####

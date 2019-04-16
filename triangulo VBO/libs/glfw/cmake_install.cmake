@@ -1,4 +1,4 @@
-# Install script for directory: /Users/carla/git/icg/ICG2019/CG_TESTE_GPU/libs/glfw
+# Install script for directory: /Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO/libs/glfw
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/carla/git/icg/ICG2019/CG_TESTE_GPU/libs/glfw/src/cmake_install.cmake")
+  include("/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO/libs/glfw/src/cmake_install.cmake")
 
 endif()
 

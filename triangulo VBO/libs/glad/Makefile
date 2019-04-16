@@ -48,59 +48,13 @@ RM = /usr/local/Cellar/cmake/3.11.4/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/carla/git/icg/ICG2019/CG_TESTE_GPU
+CMAKE_SOURCE_DIR = "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/carla/git/icg/ICG2019/CG_TESTE_GPU
+CMAKE_BINARY_DIR = "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO"
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/local/Cellar/cmake/3.11.4/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/local/Cellar/cmake/3.11.4/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/local/Cellar/cmake/3.11.4/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/local/Cellar/cmake/3.11.4/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/Cellar/cmake/3.11.4/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/Cellar/cmake/3.11.4/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -126,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(CMAKE_COMMAND) -E cmake_progress_start /Users/carla/git/icg/ICG2019/CG_TESTE_GPU/CMakeFiles /Users/carla/git/icg/ICG2019/CG_TESTE_GPU/libs/glad/CMakeFiles/progress.marks
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(MAKE) -f CMakeFiles/Makefile2 libs/glad/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/carla/git/icg/ICG2019/CG_TESTE_GPU/CMakeFiles 0
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(CMAKE_COMMAND) -E cmake_progress_start "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO/CMakeFiles" "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO/libs/glad/CMakeFiles/progress.marks"
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(MAKE) -f CMakeFiles/Makefile2 libs/glad/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(MAKE) -f CMakeFiles/Makefile2 libs/glad/clean
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(MAKE) -f CMakeFiles/Makefile2 libs/glad/clean
 .PHONY : clean
 
 # The main clean target
@@ -143,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(MAKE) -f CMakeFiles/Makefile2 libs/glad/preinstall
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(MAKE) -f CMakeFiles/Makefile2 libs/glad/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(MAKE) -f CMakeFiles/Makefile2 libs/glad/preinstall
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(MAKE) -f CMakeFiles/Makefile2 libs/glad/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 libs/glad/CMakeFiles/glad.dir/rule:
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(MAKE) -f CMakeFiles/Makefile2 libs/glad/CMakeFiles/glad.dir/rule
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(MAKE) -f CMakeFiles/Makefile2 libs/glad/CMakeFiles/glad.dir/rule
 .PHONY : libs/glad/CMakeFiles/glad.dir/rule
 
 # Convenience name for target.
@@ -168,7 +122,7 @@ glad: libs/glad/CMakeFiles/glad.dir/rule
 
 # fast build rule for target.
 glad/fast:
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(MAKE) -f libs/glad/CMakeFiles/glad.dir/build.make libs/glad/CMakeFiles/glad.dir/build
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(MAKE) -f libs/glad/CMakeFiles/glad.dir/build.make libs/glad/CMakeFiles/glad.dir/build
 .PHONY : glad/fast
 
 src/glad.o: src/glad.c.o
@@ -177,7 +131,7 @@ src/glad.o: src/glad.c.o
 
 # target to build an object file
 src/glad.c.o:
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(MAKE) -f libs/glad/CMakeFiles/glad.dir/build.make libs/glad/CMakeFiles/glad.dir/src/glad.c.o
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(MAKE) -f libs/glad/CMakeFiles/glad.dir/build.make libs/glad/CMakeFiles/glad.dir/src/glad.c.o
 .PHONY : src/glad.c.o
 
 src/glad.i: src/glad.c.i
@@ -186,7 +140,7 @@ src/glad.i: src/glad.c.i
 
 # target to preprocess a source file
 src/glad.c.i:
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(MAKE) -f libs/glad/CMakeFiles/glad.dir/build.make libs/glad/CMakeFiles/glad.dir/src/glad.c.i
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(MAKE) -f libs/glad/CMakeFiles/glad.dir/build.make libs/glad/CMakeFiles/glad.dir/src/glad.c.i
 .PHONY : src/glad.c.i
 
 src/glad.s: src/glad.c.s
@@ -195,7 +149,7 @@ src/glad.s: src/glad.c.s
 
 # target to generate assembly for a file
 src/glad.c.s:
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(MAKE) -f libs/glad/CMakeFiles/glad.dir/build.make libs/glad/CMakeFiles/glad.dir/src/glad.c.s
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(MAKE) -f libs/glad/CMakeFiles/glad.dir/build.make libs/glad/CMakeFiles/glad.dir/src/glad.c.s
 .PHONY : src/glad.c.s
 
 # Help Target
@@ -204,13 +158,9 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... glad"
-	@echo "... install"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... glad"
 	@echo "... src/glad.o"
 	@echo "... src/glad.i"
 	@echo "... src/glad.s"
@@ -225,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/carla/git/icg/ICG2019/CG_TESTE_GPU && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd "/Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO" && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

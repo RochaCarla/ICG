@@ -1,4 +1,4 @@
-# Install script for directory: /Users/carla/git/icg/ICG2019/CG_TESTE_GPU/libs/glad
+# Install script for directory: /Users/carla/git/icg/ICG2019/curso/ICG/triangulo VBO/libs/glad
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
