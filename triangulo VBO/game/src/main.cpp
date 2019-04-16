@@ -9,9 +9,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+//#include <assimp/Importer.hpp>
+//#include <assimp/scene.h>
+//#include <assimp/postprocess.h>
 #include "shader.hpp"
 
 
@@ -63,8 +63,8 @@ int main() {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 
-    Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFile("../X.obj", aiProcess_Triangulate);
+    //Assimp::Importer importer;
+    //const aiScene *scene = importer.ReadFile("../X.obj", aiProcess_Triangulate);
 
     float vertices[] = {
        
