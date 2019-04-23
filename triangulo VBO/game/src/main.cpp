@@ -28,145 +28,147 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 }
 
-int main() {
-    cout << "Game On" << endl;
+GLFWwindow* create_window() {
+  glfwInit();
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  // Mac OS only
+  //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    // Mac OS only
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  GLFWwindow* window = glfwCreateWindow(800, 600, "Playground", NULL, NULL);
+  if (window == NULL)
+  {
+      std::cout << "Failed to create GLFW window" << std::endl;
+      glfwTerminate();
+      return NULL;
+  }
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Playground", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
+  glfwMakeContextCurrent(window);
 
-    glfwMakeContextCurrent(window);
+  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+  {
+      std::cout << "Failed to initialize GLAD" << std::endl;
+      return NULL;
+  }
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
-
-    int screenWidth = 800;
-    int screenHeight = 600;
+  //int screenWidth = 800;
+  //int screenHeight = 600;
   
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+  return(window);
+}
 
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-
-
-    //Assimp::Importer importer;
-    //const aiScene *scene = importer.ReadFile("../X.obj", aiProcess_Triangulate);
-
-    float vertices[] = {
-       
-         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,
-         0.0f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f
-    };
-    float texCoords[] = {
-        0.0f, 0.0f,  // lower-left corner  
-        1.0f, 0.0f,  // lower-right corner
-        0.5f, 1.0f   // top-center corner
-    };
-    unsigned int indices[] = {
-        0, 1, 2
-    };
-
-    unsigned int VBO;
-    glGenBuffers(1, &VBO);
-
-    unsigned int VBO_textcoordinates;
-    glGenBuffers(1, &VBO_textcoordinates);
-
-    unsigned int EBO;
-    glGenBuffers(1, &EBO);
+void load_texture(unsigned int TEX) {
+  stbi_set_flip_vertically_on_load(true); 
+  int width, height, nrChannels;
+  unsigned char *data = stbi_load("../teste.jpg", &width, &height, &nrChannels, 0); 
+  if (data) {
+    glBindTexture(GL_TEXTURE_2D, TEX);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+  }
+  else {
+    std::cout << "Failed to load texture" << std::endl;
+  }   
+  stbi_image_free(data);
+}
 
 
-    unsigned int TEX;
-    glGenTextures(1, &TEX);
-    stbi_set_flip_vertically_on_load(true); 
-    int width, height, nrChannels;
-    unsigned char *data = stbi_load("../teste.jpg", &width, &height, &nrChannels, 0); 
-    if (data)
-    {
-            glBindTexture(GL_TEXTURE_2D, TEX);
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-            glGenerateMipmap(GL_TEXTURE_2D);
-    }else{
-        std::cout << "Failed to load texture" << std::endl;
-    }   
-    stbi_image_free(data);
-    Shader shader("game/assets/shaders/vertex.glsl",
-                  "game/assets/shaders/fragment.glsl");
+//
+
+void bind_data_to_buffers(float*  vertices, float* texCoords, unsigned int* indices, unsigned int VBO, unsigned int VBO_textcoordinates, unsigned int EBO, unsigned int TEX, unsigned int VAO) {
+  glBindVertexArray(VAO);
+
+  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glBufferData(GL_ARRAY_BUFFER, sizeof vertices, vertices, GL_STATIC_DRAW);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) 0);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) (3*sizeof(float)));
+
+
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_textcoordinates);
+  glBufferData(GL_ARRAY_BUFFER, sizeof texCoords, texCoords, GL_STATIC_DRAW);
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+  glActiveTexture(GL_TEXTURE0);
+
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof indices, indices, GL_STATIC_DRAW);
+  
+  
+  glEnableVertexAttribArray(0);
+  glEnableVertexAttribArray(1);
+  glEnableVertexAttribArray(2);  
+
+  glBindVertexArray(0);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+  glEnable(GL_DEPTH_TEST);
+}
+
+int main() {
+  cout << "Game On" << endl;
+  GLFWwindow* window = create_window();
+  if (window == NULL) {
+    return -1;
+  }
+
+  // TODO move the DATA to a new Class GameObject.cpp or similar
+  //Assimp::Importer importer;
+  //const aiScene *scene = importer.ReadFile("../X.obj", aiProcess_Triangulate);
+  float vertices[] = {
+     0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 1.0f,
+    -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,
+     0.0f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f
+  };
+  float texCoords[] = {
+    0.0f, 0.0f,  // lower-left corner  
+    1.0f, 0.0f,  // lower-right corner
+    0.5f, 1.0f   // top-center corner
+  };
+  unsigned int indices[] = {
+    0, 1, 2
+  };
+
+  unsigned int VBO;
+  glGenBuffers(1, &VBO);
+  unsigned int VBO_textcoordinates;
+  glGenBuffers(1, &VBO_textcoordinates);
+  unsigned int EBO;
+  glGenBuffers(1, &EBO);
+  unsigned int TEX;
+  glGenTextures(1, &TEX);
+  unsigned int VAO;
+  glGenVertexArrays(1, &VAO);
+
+  load_texture(TEX);
+
+  Shader shader("game/assets/shaders/vertex.glsl",
+                "game/assets/shaders/fragment.glsl");
+  shader.use();
+
+  bind_data_to_buffers(vertices, texCoords, indices, VBO, VBO_textcoordinates, EBO, TEX, VAO);
+
+  while(!glfwWindowShouldClose(window)) {
+    tempo = time(0);
+    processInput(window);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shader.use();
-
-
-
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO);
-
+    //  glBindTexture(GL_TEXTURE_2D, TEX);
     glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof vertices, vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) 0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) (3*sizeof(float)));
-
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO_textcoordinates);
-    glBufferData(GL_ARRAY_BUFFER, sizeof texCoords, texCoords, GL_STATIC_DRAW);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-    glActiveTexture(GL_TEXTURE0);
-
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof indices, indices, GL_STATIC_DRAW);
-    
-    
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glEnableVertexAttribArray(2);  
-
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
 
-    glEnable(GL_DEPTH_TEST);
+  glDeleteVertexArrays(1, &VAO);
+  glDeleteBuffers(1, &VBO);
+  glDeleteBuffers(1, &EBO);
+  glfwTerminate();
 
-   
-
-    while(!glfwWindowShouldClose(window))
-    {
-        tempo = time(0);
-
-        processInput(window);
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        shader.use();
-      //  glBindTexture(GL_TEXTURE_2D, TEX);
-        glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
-
-    glfwTerminate();
-
-    return 0;
+  return 0;
 }
